@@ -8,30 +8,25 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pl.gda.wsb.PageFactory.DriverFactory;
 import pl.gda.wsb.PageFactory.LoginPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
-    WebDriver driver = null;
-    LoginPage loginPage;
+    WebDriver driver = DriverFactory.getChromeDiver();
+    LoginPage loginPage = new LoginPage(driver);
 
     @Given("Open login page")
     public void openLoginPage() {
-        // Declaration and instantiation of driver
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
+        driver = DriverFactory.getChromeDiver();
         driver.navigate().to("https://opensource-demo.orangehrmlive.com/");
     }
 
     @When("User enters unsername and password")
     public void userEntersUnsernameAndPassword() {
         System.out.println("Users enters unsername and password");
-        loginPage = new LoginPage(driver);
         loginPage.enterUsername("Admin");
         loginPage.enterPassword("admin321321");
     }
