@@ -5,13 +5,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pl.gda.wsb.PageFactory.DriverFactory;
 import pl.gda.wsb.PageFactory.LoginPage;
-
-import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
@@ -24,11 +20,11 @@ public class LoginSteps {
         driver.navigate().to("https://opensource-demo.orangehrmlive.com/");
     }
 
-    @When("User enters unsername and password")
-    public void userEntersUnsernameAndPassword() {
-        System.out.println("Users enters unsername and password");
-        loginPage.enterUsername("Admin");
-        loginPage.enterPassword("admin321321");
+    @When("^User enters (.*) and (.*)$")
+    public void userEntersUsernameAndPassword(String username, String password) {
+        System.out.println("Users enters username and password");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
     }
 
     @And("Click on login button")
@@ -37,9 +33,9 @@ public class LoginSteps {
         loginPage.clickOnLogin();
     }
 
-    @Then("The validation message is displayed")
-    public void theValidationMessageIsDisplayed() {
+    @Then("^The validation (.*) is displayed$")
+    public void theValidationMessageIsDisplayed(String message) {
         System.out.println("Validation message");
-        Assert.assertEquals("Invalid credentials",loginPage.getValidationMessage());
+        Assert.assertEquals(message,loginPage.getValidationMessage());
     }
 }

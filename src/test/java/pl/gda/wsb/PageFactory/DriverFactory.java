@@ -2,6 +2,7 @@ package pl.gda.wsb.PageFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
@@ -21,6 +22,11 @@ public class DriverFactory {
             driver.manage().window().fullscreen();
         }
         return driver;
+    }
+
+    @AfterTest
+    public void tearDown() {
+        driver.close();
     }
 
 }
